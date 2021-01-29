@@ -32,7 +32,8 @@ class HomePage:
 
     def set_date_value(self):
         driver = self.driver
-        driver.find_element_by_xpath("//div[@id='calen']/div/div[2]/div[3]/span[20]").click()
+        driver.find_element_by_xpath("//form[@id='search_form']/div/div[5]/div[5]/div/div[3]").click()
+        driver.find_element_by_xpath("//div[@id='calen']/div/div[4]/div[3]/span[16]").click()
 
     def click_find_tickets_button(self):
         driver = self.driver
