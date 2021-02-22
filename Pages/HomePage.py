@@ -3,11 +3,14 @@ from selenium import webdriver
 
 def departure_city_value(city_1, driver):
     driver.find_element_by_id("city_1_user").click()
+    driver.find_element_by_id("city_1_user").clear()
     driver.find_element_by_id("city_1_user").send_keys(city_1)
     driver.find_element_by_xpath("//div[@id='city_result_1']/ul/li").click()
 
 
 def arrival_city_value(city_2, driver):
+    driver.find_element_by_id("city_2_user").click()
+    driver.find_element_by_id("city_2_user").clear()
     driver.find_element_by_id("city_2_user").send_keys(city_2)
     driver.find_element_by_xpath("//div[@id='city_result_2']/ul/li/div/span").click()
 
@@ -32,8 +35,7 @@ class HomePage:
 
     def set_date_value(self):
         driver = self.driver
-        driver.find_element_by_xpath("//form[@id='search_form']/div/div[5]/div[5]/div/div[3]").click()
-        driver.find_element_by_xpath("//div[@id='calen']/div/div[4]/div[3]/span[16]").click()
+        driver.find_element_by_xpath("//*[@id='calen']/div/div[4]/div[3]/span[25]").click()
 
     def click_find_tickets_button(self):
         driver = self.driver

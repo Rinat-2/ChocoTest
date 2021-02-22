@@ -6,7 +6,7 @@ from Pages.TicketsPage import TicketsPage
 
 @pytest.fixture(scope="session")
 def app(request):
-    fixture = HomePage() or TicketsPage()
+    fixture = HomePage() and TicketsPage()
     request.addfinalizer(fixture.destroy)
     return fixture
 

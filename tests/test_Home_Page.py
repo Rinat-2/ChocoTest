@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import allure
+from allure_commons.types import AttachmentType
 
 
 @allure.step("Поиск города без значений")
@@ -9,9 +10,10 @@ def test_find_tickets_without_value(app):
     with allure.step("Нажать на кнопку найти"):
         app.click_find_tickets_button()
     assert app.driver.find_element_by_css_selector("div.win-block").is_displayed()
+    # allure.attach('screenshot', app.driver.get_screenshot_as_png(), type=AttachmentType.PNG)
 
 
-@allure.step("Удаление города из поля 'Город отправления'")
+@allure.title("Удаление города из поля 'Город отправления'")
 def test_delete_value_departure_city(app):
     with allure.step("Открыть главную страницу"):
         app.open_home_page()
@@ -44,8 +46,7 @@ def test_find_tickets_with_value(app):
     assert app.driver.find_element_by_id("city_1").get_attribute("value") == "ALA"
     assert app.driver.find_element_by_id("city_2").get_attribute("value") == "NQZ"
 
-
-def test_find_tickets_with_popular_destinations(app):
-    app.open_home_page()
-    app.set_popular_destinations()
-    # assert app.driver.find_element_by_link_text("Нур-Султан").is_displayed(False)
+# def test_find_tickets_with_popular_destinations(app):
+# app.open_home_page()
+# app.set_popular_destinations()
+# assert app.driver.find_element_by_link_text("Нур-Султан").is_displayed(False)
