@@ -12,13 +12,32 @@ test:
 
   script:
     - echo "Run all tests"
-    - py.test --alluredir=results
-
-    # Отправка отчетов о тестах в группу
-    - echo "Send report to chat"
-    - allureserve results
+    - pytest --alluredir=allure-results
 
   artifacts:
     paths:
-      - /results
+      - /allure-results
     expire_in: 1 month
+
+allure_job: # Название job
+  stage: reports # Третий stage, который будет выполнен
+  script:
+     - allure generate -c ./allure-results -o ./allure-report # Генерируем отчет из ./allure-results внутрь папки ./allure-report
+  artifacts:
+    paths:
+      - ./allure-results # Примонтируем две этих директории для получения результатов тестирования и генерации отчетов соответственно
+      - ./allure-report
+    expire_in: 1 day
+  rules:
+    - when: always
+
+pages: # Названием этой job говорим гитлабу, чтобы захостил результат у себя в pages
+  stage: deploy # Четвертый stage, который будет выполнен
+  script:
+    - mkdir public # Создаем папку public. По умолчанию гитлаб хостит в gitlab pages только из папки public
+    - mv ./allure-report/* public # Перемещаем в папку public сгенерированный отчет.
+  artifacts:
+    paths:
+      - public
+  rules:
+    - when: always
